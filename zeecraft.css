@@ -94,8 +94,7 @@ header {
     margin-bottom: 300px;
     color: whitesmoke;
     text-align: center;
-    z-index: 1000;
-    animation: transitionIn 8s;
+    animation: transitionIn 4s;
 }
 
 .line {

@@ -71,11 +71,6 @@ const updatePlayercount = (ip, port) => {
         // Display server status
         $(".sip").html(status.online ? 'Server is online' : 'Server is offline');
             
-        if (status.players && status.players.now) {
-            $(".sip").html(`Players online: ${status.players.now}`);
-        } else {
-            $(".sip").html('Server is online, player count unavailable');
-        }
     });
 };
 

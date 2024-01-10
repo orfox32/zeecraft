@@ -30,28 +30,16 @@ let t;
         if (port == "" || port == null) port = "25565";
         if (ip == "" || ip == null) return console.error("Error fetching player count - is the IP set correctly in the HTML?");
         
-        // Use MinecraftAPI to get server status
-        MinecraftAPI.getServerStatus(ip, {
-            port: port // optional, only if you need a custom port
-        }, function (err, status) {
-            if (err) {
-                // Handle error loading status
-                return console.error('Error loading status');
-            }
-
-            // Display player count if the server is online
-            if (status.online) {
-                updatePlayerCount(status.players.now);
+        // Use Battlemetrics API to get player count
+        $.get(`https://api.battlemetrics.com/servers?filter[game]=minecraft&filter[search]=${ip}:${port}`, function (data) {
+            if (data.data.length > 0) {
+                // Server found, display player count
+                $(".sip").html(${data.data[0].attributes.players});
             } else {
-                // Server is offline, display appropriate message
+                // Server not found, display appropriate message
                 $(".minecraftcount").html('Server is offline');
             }
         });
-    };
-
-    // Function to update player count
-    const updatePlayerCount = (playerCount) => {
-        $(".sip").html(playerCount);
     };
 
     // Initial call to update server status and player count

@@ -22,7 +22,7 @@ let t;
             }, 800);
         });
 
-      $(document).ready(() => {
+     $(document).ready(() => {
     // Function to update server status and player count
     const updateServerStatusAndPlayerCount = () => {
         let ip = $(".sip").attr("data-ip");
@@ -44,12 +44,17 @@ let t;
 
             // Display player count if the server is online
             if (status.online) {
-                $(".sip").html(status.players.now);
+                updatePlayerCount(status.players.now);
             } else {
                 // Server is offline, display appropriate message
                 $(".sip").html('Server is offline');
             }
         });
+    };
+
+    // Function to update player count
+    const updatePlayerCount = (playerCount) => {
+        $(".sip").html(playerCount);
     };
 
     // Initial call to update server status and player count

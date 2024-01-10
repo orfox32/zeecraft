@@ -22,37 +22,19 @@ let t;
             }, 800);
         });
 
-     $(document).ready(() => {
-    // Function to update server status and player count
-    const updateServerStatusAndPlayerCount = () => {
-        let ip = $(".sip").attr("data-ip");
-        let port = $(".sip").attr("data-port");
-        if (port == "" || port == null) port = "25565";
-        if (ip == "" || ip == null) return console.error("Error fetching player count - is the IP set correctly in the HTML?");
-        
-        // Use Battlemetrics API to get player count
-        $.get(`https://api.battlemetrics.com/servers?filter[game]=minecraft&filter[search]=${ip}:${port}`, function (data) {
-            if (data.data.length > 0) {
-                // Server found, display player count
-                $(".sip").html(${data.data[0].attributes.players});
-            } else {
-                // Server not found, display appropriate message
-                $(".minecraftcount").html('Server is offline');
-            }
-        });
-    };
-
-    // Initial call to update server status and player count
-    updateServerStatusAndPlayerCount();
-
+  $(document).ready(() => {
+    let ip = $(".sip").attr("data-ip");
+    let port = $(".sip").attr("data-port");
+    if (port == "" || port == null) port = "25565";
+    if (ip == "" || ip == null) return console.error("Error fetching player count - is the IP set correctly in the HTML?");
+    updatePlayercount(ip, port);
     // Updates every minute (not worth changing due to API cache)
     setInterval(() => {
-        // Call the function to update server status and player count
-        updateServerStatusAndPlayerCount();
+        updatePlayercount(ip, port);
     }, 60000);
 });
 
-/*const updatePlayercount = (ip, port) => {
+const updatePlayercount = (ip, port) => {
     $.get(`https://api.bybilly.uk/api/players/${ip}/${port}`, (result) => {
         if (result.hasOwnProperty('online')) {
             $(".sip").html(result.online);
@@ -60,4 +42,4 @@ let t;
             $(".minecraftcount").html("Server isn't online!");
         }
     });
-};*/
+};

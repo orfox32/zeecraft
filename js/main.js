@@ -39,15 +39,12 @@ let t;
                 return console.error('Error loading status');
             }
 
-            // Display server status
-            $(".server-online").html(status.online ? 'up' : 'down');
-
             // Display player count if the server is online
             if (status.online) {
                 updatePlayerCount(status.players.now);
             } else {
                 // Server is offline, display appropriate message
-                $(".sip").html('Server is offline');
+                $(".minecraftcount").html('Server is offline');
             }
         });
     };
